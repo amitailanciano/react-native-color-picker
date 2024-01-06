@@ -11,4 +11,7 @@ export interface IPickerProps {
   onColorChange?: (selectedColor: HsvColor) => void;
   onOldColorSelected?: (oldColor: string) => void;
   hideSliders?: boolean;
+  onPickerStart?: () => void;
+  onPickerEnd?: () => void;
+  indicatorColorOverride?: string
 }

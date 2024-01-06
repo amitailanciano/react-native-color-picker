@@ -61,8 +61,15 @@ export class HoloColorPicker extends React.PureComponent<
     this._onOldColorSelected = this._onOldColorSelected.bind(this)
     this._isRTL = I18nManager.isRTL
     this._pickerResponder = createPanResponder({
-      onStart: this._handleColorChange,
+      onStart: (point2D) => {
+        props.onPickerStart && props.onPickerStart()
+        return this._handleColorChange(point2D)
+      },
       onMove: this._handleColorChange,
+      onEnd: () => {
+        props.onPickerEnd && props.onPickerEnd()
+        return true;
+      }
     })
   }
 
@@ -120,20 +127,20 @@ export class HoloColorPicker extends React.PureComponent<
     InteractionManager.runAfterInteractions(() => {
       // measure only after (possible) animation ended
       this.refs.pickerContainer &&
-        (this.refs.pickerContainer as any).measure(
-          (
-            x: number,
-            y: number,
-            width: number,
-            height: number,
-            pageX: number,
-            pageY: number
-          ) => {
-            // picker position in the screen
-            this._pageX = pageX
-            this._pageY = pageY
-          }
-        )
+      (this.refs.pickerContainer as any).measure(
+        (
+          x: number,
+          y: number,
+          width: number,
+          height: number,
+          pageX: number,
+          pageY: number
+        ) => {
+          // picker position in the screen
+          this._pageX = pageX
+          this._pageY = pageY
+        }
+      )
     })
   }
 
@@ -187,7 +194,7 @@ export class HoloColorPicker extends React.PureComponent<
 
   render() {
     const { pickerSize } = this.state
-    const { oldColor, style } = this.props
+    const { oldColor, indicatorColorOverride, style } = this.props
 
     const color = this._getColor()
     const { h, s, v } = color
@@ -198,7 +205,7 @@ export class HoloColorPicker extends React.PureComponent<
     const computed = makeComputedStyles({
       pickerSize,
       selectedColor,
-      indicatorColor,
+      indicatorColor: indicatorColorOverride ?? indicatorColor,
       oldColor,
       angle,
       isRTL: this._isRTL,

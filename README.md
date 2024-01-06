@@ -7,7 +7,6 @@ React Native implementation of color picker for both Android and iOS.
 
 * [x] works both in controlled and uncontrolled way
 * [x] old color can be displayed for visual comparison
-* [x] holo and triangle color pickers
 
 ## Getting started
 Install the color picker
@@ -35,17 +34,13 @@ For HoloPicker (`ColorPicker`) you might need to install `@react-native-communit
 
 ## API
 
-### Color picker type
-
-We provide two types of color picker - holo (default) and triangle color picker. Both has the same API so that they are interchangable. Just import it and use it the same way:
-
 ```javascript
-import { ColorPicker, TriangleColorPicker } from 'react-native-color-picker'
+import { ColorPicker } from 'react-native-color-picker'
 ```
 
-| ColorPicker | TriangleColorPicker |
-| ----------- | ------------------- |
-| ![](doc/holo.png) | ![](doc/triangle.png) |
+| ColorPicker |
+| ----------- |
+| ![](doc/holo.png) |
 
 
 ### Props
@@ -54,17 +49,17 @@ Color pickers accepts properties below. Each property which define color is repr
 
 Both color pickers are [PureComponents](https://facebook.github.io/react/docs/react-api.html#react.purecomponent) thus if you want to update it you should not mutate its properties deeply.
 
-| Property | Type | Note |
-|--------------------|------------|--------|
-|`color`             |`String\|HSV`|[Color string](https://github.com/bgrins/TinyColor#accepted-string-input) or HSV object (see below). Defines selected color in controlled component. |
-|`defaultColor`      |`String`    |Defines initial selected color in uncontrolled component.|
-|`oldColor`          |`String`    |Old color to be used for visual comparision. If it is not defined, whole circle is representing selected color.|
-|`style`             |`Style`     |Styles passed to color picker container|
-|`onColorSelected`   |`Function`  |Callback with color (HEX string) as argument called when user confirms color selection.|
-|`onColorChange`     |`Function`  |Callback called each time when color is changed. Used in controlled component. Argument is color in HSV representation (see below)|
-|`onOldColorSelected`|`Function`  |Callback with color (HEX string) as argument called when user selects old color.|
-|`hideSliders`       |`Boolean`   |Option to hide bottom sliders (holo picker only) |
-|`hideControls`      |`Boolean`   |Option to hide bottom buttons (triangle picker only) |
+| Property                 | Type | Note                                                                                                                                                |
+|--------------------------|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| `color`                  |`String\|HSV`| [Color string](https://github.com/bgrins/TinyColor#accepted-string-input) or HSV object (see below). Defines selected color in controlled component. |
+| `defaultColor`           |`String`    | Defines initial selected color in uncontrolled component.                                                                                           |
+| `indicatorColorOverride` |`String`    | Overrides the tint color of the indicator                                                                                                           |
+| `oldColor`               |`String`    | Old color to be used for visual comparision. If it is not defined, whole circle is representing selected color.                                     |
+| `style`                  |`Style`     | Styles passed to color picker container                                                                                                             |
+| `onColorSelected`        |`Function`  | Callback with color (HEX string) as argument called when user confirms color selection.                                                             |
+| `onColorChange`          |`Function`  | Callback called each time when color is changed. Used in controlled component. Argument is color in HSV representation (see below)                  |
+| `onOldColorSelected`     |`Function`  | Callback with color (HEX string) as argument called when user selects old color.                                                                    |
+| `hideSliders`            |`Boolean`   | Option to hide bottom sliders (holo picker only)                                                                                                    |
 
 When using color picker as a controlled component you should always use HSV color representation to avoid conversion from/to HEX or RGB. HSV color representation is an object literal with properties:
 
